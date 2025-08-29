@@ -1,4 +1,4 @@
-# create-lscs-next-app
+# create-lscs-app
 
 Author: Max Benedict Chavez, Lead Frontend Engineer for Research and Development
 
