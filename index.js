@@ -25,7 +25,9 @@ rl.question(
         )
         break
       case '3':
-        execSync(`npx lscs-next-app ${projectName}`, { stdio: 'inherit' })
+        execSync(`npx create-lscs-next-app ${projectName}`, {
+          stdio: 'inherit',
+        })
         break
       default:
         console.error('❌ Invalid option.')
