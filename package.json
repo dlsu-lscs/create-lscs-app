@@ -1,6 +1,6 @@
 {
   "name": "create-lscs-app",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "NPX scaffolding CLI for LSCS RnD projects (Server, Web, Next.js) following standardized architectures for each domain",
   "main": "index.js",
   "type": "module",
@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/dlsu-lscs/create-lscs-app#readme",
   "dependencies": {
-    "inquirer": "^9.2.7"
+    "inquirer": "^9.2.7",
+    "chalk": "^5.3.0"
   }
 }

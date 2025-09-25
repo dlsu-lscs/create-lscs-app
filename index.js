@@ -1,58 +1,49 @@
 #!/usr/bin/env node
-import readline from 'readline'
+import inquirer from 'inquirer'
 import { execSync } from 'child_process'
-
-// ────────────────────────────────
-// Utility: ask question
-// ────────────────────────────────
-function askQuestion(query) {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  })
-  return new Promise((resolve) => {
-    rl.question(query, (answer) => {
-      rl.close()
-      resolve(answer.trim())
-    })
-  })
-}
+import chalk from 'chalk'
 
 async function main() {
-  // Step 0: Get project name
-  let projectName = process.argv[2]
-  if (!projectName) {
-    projectName = await askQuestion('📦 Enter your project name: ')
-    if (!projectName) {
-      console.error('❌ Project name is required.')
-      process.exit(1)
-    }
+  const projectName = 'lscs-app' // fixed project name
+  console.log(chalk.green(`🚀 Creating LSCS App CLI project: "${projectName}"`))
+
+  // Step 1: Ask for project type
+  const { projectType } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'projectType',
+      message: 'Select project type:',
+      choices: [
+        {
+          name: 'Server (coming soon)',
+          value: 'server',
+          disabled: 'Coming soon',
+        },
+        { name: 'Web (coming soon)', value: 'web', disabled: 'Coming soon' },
+        { name: 'Next', value: 'next' },
+      ],
+    },
+  ])
+
+  if (projectType === 'next') {
+    console.log(
+      chalk.blue(`📦 Creating LSCS Next.js project "${projectName}"...`)
+    )
+    execSync(`npx create-lscs-next-app ${projectName}`, { stdio: 'inherit' })
+  } else {
+    console.error(chalk.red('❌ This option is currently unavailable.'))
+    process.exit(1)
   }
 
-  // Step 1: Ask project type
-  const answer = await askQuestion(
-    'Select project type:\n[1] Server (coming soon)\n[2] Web (coming soon)\n[3] Next\nYour choice: '
+  console.log(chalk.green(`✅ Project "${projectName}" created!`))
+  console.log(
+    chalk.yellow(
+      `👉 Next steps:\n  cd ${projectName}\n  npm install\n  npm run dev`
+    )
   )
-
-  switch (answer.trim()) {
-    case '1':
-    case '2':
-      console.error(
-        '❌ This option is currently unavailable. Please choose Next (3).'
-      )
-      process.exit(1)
-    case '3':
-      execSync(`npx create-lscs-next-app ${projectName}`, {
-        stdio: 'inherit',
-      })
-      break
-    default:
-      console.error('❌ Invalid option.')
-      process.exit(1)
-  }
 }
 
 main().catch((err) => {
-  console.error('❌ Unexpected error:', err)
+  console.error(chalk.red('❌ Unexpected error:'), err)
   process.exit(1)
 })
