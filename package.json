@@ -1,6 +1,6 @@
 {
   "name": "create-lscs-app",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "NPX scaffolding CLI for LSCS RnD projects (Server, Web, Next.js) following standardized architectures for each domain",
   "main": "index.js",
   "type": "module",

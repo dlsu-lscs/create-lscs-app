@@ -15,12 +15,12 @@ async function main() {
           name: 'Api',
           value: 'api',
         },
-        { name: 'Next', value: 'next' },
+        { name: 'Web', value: 'web' },
       ],
     },
   ])
 
-  if (projectType === 'next') {
+  if (projectType === 'web') {
     console.log(chalk.blue(`📦 Creating LSCS Next.js project...`))
     execSync(`npx create-lscs-next-app`, { stdio: 'inherit' })
   } else if (projectType === 'api') {
